@@ -4,99 +4,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment3
+namespace Assignment4_Q1
 {
     class Program
     {
         static void Main()
         {
+           
+            
 
+            Console.Write("Enter the no of Employee" );
+            int l = Convert.ToInt32(Console.ReadLine());
 
-            Manager m = new Manager("Pratik", 30, 20000, "Manager");
-            Console.WriteLine(m.NAME);
-            Console.WriteLine(m.EMPNO);
-            Console.WriteLine(m.DEPTNO);
-            Console.WriteLine(m.BASIC);
-            Console.WriteLine(m.CalcNetSalary());
-            Console.WriteLine(m.DESIGNATION);
+            //Employee e;
+            Employee[] arr = new Employee[l];
+            
+            for (int i=0; i<l;i++)
+            {
+                arr[i] = new Employee();
+                Console.Write("enter Employee Name  : ");
 
+              arr[i].EMPNAME = Console.ReadLine();
+                Console.Write("enter Employee Dept no  : ");
+               arr[i].DEPTNO= Convert.ToInt16(Console.ReadLine());
+                Console.Write("enter Employee Basic Salary : ");
+              arr[i].BASIC = Convert.ToInt32(Console.ReadLine());
+                
+                
+                
+            }
 
-            Manager m1 = new Manager("Rahul", 10, 20000, "Manager");
-            Console.WriteLine(m1.NAME);
-            Console.WriteLine(m1.EMPNO);
-            Console.WriteLine(m1.DEPTNO);
-            Console.WriteLine(m1.BASIC);
-            Console.WriteLine(m1.CalcNetSalary());
-            Console.WriteLine(m1.DESIGNATION);
-
-            GeneralManager g = new GeneralManager("Rahul", 10, 20000, "GEManager", "yes");
-            Console.WriteLine(g.NAME);
-            Console.WriteLine(g.EMPNO);
-            Console.WriteLine(g.DEPTNO);
-            Console.WriteLine(g.BASIC);
-            Console.WriteLine(g.CalcNetSalary());
-            Console.WriteLine(g.DESIGNATION);
-            Console.WriteLine(g.PERKS);
-
-
-            CEO ceo = new CEO("master", 1, 50000);
-            Console.WriteLine(ceo.NAME);
-            Console.WriteLine(ceo.EMPNO);
-            Console.WriteLine(ceo.CalcNetSalary());
-
-
-            IDbFunctions idb1, idb2,idb3;
-            idb3 = ceo;
-            idb3.Insert("add comment");
-            idb3.Update("update comment");
-            idb3.Delete("delete comment");
-
-            idb1 = m;
-            idb1.Insert("add comment");
-            idb1.Update("update comment");
-            idb1.Delete("delete comment");
-
-
-            idb2 = g;
-            idb2.Insert("add comment");
-            idb2.Update("update comment");
-            idb2.Delete("delete comment");
+            Array.Sort(arr);
+            foreach(Employee emp in arr)
+            {
+                emp.show();
+            }
+        
         }
     }
 
-
-    public interface IDbFunctions
-        {
-        void Insert(string comment);
-        void Update(string comment);
-        void Delete(string comment);
-    }
-
-    public abstract class Employee : IDbFunctions
+    public class Employee
     {
-
-        private string Name;
-        public string NAME
-        {
-            set
-            {
-                if (value != " ")
-                    Name = value;
-                else
-                    Console.WriteLine("invalid Name");
-            }
-
-            get
-            {
-                return Name;
-            }
-
-        }
-
+        
+        
         private int EmpNo;
         public int EMPNO
         {
             get { return EmpNo; }
+        }
+        
+        
+        
+        private string EmpName;
+
+
+        public string EMPNAME
+        {
+            set { EmpName = value; }
+            get { return EmpName; }
         }
 
         private short DeptNo;
@@ -117,167 +82,31 @@ namespace Assignment3
             }
         }
 
-        protected decimal Basic;
 
-        public abstract decimal BASIC
+        private decimal Basic;
+        public decimal BASIC
         {
-            get;
-            set;
+            set { Basic = value; }
+            get { return Basic; }
         }
 
-        private static int no;
-        public Employee(string Name, short DeptNo = 1, decimal Basic = 0)
+        private static int eid = 0;
+        public Employee(string EmpName = "noname", short DeptNo =0,decimal Basic=0)
         {
-            this.Name = Name;
-            no++;
-            EmpNo = no;
+            eid++;
+            EmpNo = eid;
+            this.EmpName = EmpName;
             this.DeptNo = DeptNo;
             this.Basic = Basic;
 
-
-        }
-        public abstract decimal CalcNetSalary();
-        public abstract void Insert(string comment);
-        public abstract void Update(string comment);
-        public abstract void Delete(string comment);
-
-    }
-
-
-    public class Manager : Employee , IDbFunctions
-    {
-        public override decimal BASIC
-        {
-            set { Basic = value; }
-            get { return Basic; }
-
         }
 
-        public Manager(string Name, short DeptNo = 1, decimal Basic = 0, string Designation = null) : base(Name, DeptNo, Basic)
+       public void show()
         {
-
-            this.Basic = Basic;
-            this.Designation = Designation;
-        }
-
-        public override decimal CalcNetSalary()
-        {
-            decimal netsal = Basic + (Basic * 10 / 100);
-            return netsal;
-        }
-
-        public override void Insert( string comment)
-        {
-            Console.WriteLine(comment+"--Manager");
-        }
-
-        public override void Update(string comment)
-        {
-            Console.WriteLine(comment + "--Manager");
-        }
-
-        public override void Delete(string comment)
-        {
-            Console.WriteLine(comment + "--Manager");
-        }
-
-        private string Designation;
-        public string DESIGNATION
-        {
-            set
-            {
-                if (value != " ")
-                    Designation = value;
-                else
-                    Console.WriteLine("invalid Designation");
-            }
-
-            get
-            {
-                return Designation;
-            }
-        }
-    }
-
-
-    public class GeneralManager : Manager , IDbFunctions
-    {
-
-        private string Perks;
-        public string PERKS
-        {
-            set
-            {
-                Perks = value;
-            }
-
-            get
-            {
-                return Perks;
-            }
-        }
-
-        public GeneralManager(string Name, short DeptNo, decimal Basic = 0, string Designation = null, string Perks = null) : base(Name, DeptNo, Basic, Designation)
-        {
-            this.Perks = Perks;
-        }
-
-        public override decimal CalcNetSalary()
-        {
-            decimal netsal = Basic + (Basic * 20 / 100);
-            return netsal;
-        }
-
-        public override void Insert(string comment)
-        {
-            Console.WriteLine(comment + "--GManager");
-        }
-
-        public override void Update(string comment)
-        {
-            Console.WriteLine(comment + "--GManager");
-        }
-
-        public override void Delete(string comment)
-        {
-            Console.WriteLine(comment + "--GManager");
-        }
-
-    }
-
-    public class CEO : Employee
-    {
-
-        public override decimal BASIC
-        {
-            set { Basic = value; }
-            get { return Basic; }
-
-        }
-
-        public CEO(string Name, short DeptNo, decimal Basic) : base(Name, DeptNo, Basic)
-        {
-
-        }
-        public sealed override decimal CalcNetSalary()
-        {
-            decimal netsal = Basic + (Basic * 50 / 100);
-            return netsal;
-        }
-
-        public  sealed override  void Insert(string comment)
-        {
-            Console.WriteLine(comment + "--CEO");
-        }
-
-        public sealed override void Update(string comment)
-        {
-            Console.WriteLine(comment + "--CEO");
-        }
-
-        public sealed override void Delete(string comment)
-        {
-            Console.WriteLine(comment + "--CEO");
+            Console.WriteLine(EMPNO);
+            Console.WriteLine(EMPNAME);
+            Console.WriteLine(DEPTNO);
+            Console.WriteLine(BASIC);
         }
     }
 }
