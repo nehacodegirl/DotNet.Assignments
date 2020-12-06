@@ -4,109 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment4_Q1
+namespace Assignment_Q2
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
-           
-            
 
-            Console.Write("Enter the no of Employee" );
-            int l = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter the no of batches");
+            int a = Convert.ToInt32(Console.ReadLine());
+            int[][] arr = new int[a][];
 
-            //Employee e;
-            Employee[] arr = new Employee[l];
-            
-            for (int i=0; i<l;i++)
+            for(int i=0;i<arr.Length;i++)
             {
-                arr[i] = new Employee();
-                Console.Write("enter Employee Name  : ");
-
-              arr[i].EMPNAME = Console.ReadLine();
-                Console.Write("enter Employee Dept no  : ");
-               arr[i].DEPTNO= Convert.ToInt16(Console.ReadLine());
-                Console.Write("enter Employee Basic Salary : ");
-              arr[i].BASIC = Convert.ToInt32(Console.ReadLine());
-                
-                
-                
+                Console.Write("Enter the no of student");
+                int b = Convert.ToInt32(Console.ReadLine());
+                arr[i] = new int[b];
             }
 
-            Array.Sort(arr);
-            foreach(Employee emp in arr)
+            for (int i = 0; i < arr.Length; i++)
             {
-                emp.show();
-            }
-        
-        }
-    }
-
-    public class Employee
-    {
-        
-        
-        private int EmpNo;
-        public int EMPNO
-        {
-            get { return EmpNo; }
-        }
-        
-        
-        
-        private string EmpName;
-
-
-        public string EMPNAME
-        {
-            set { EmpName = value; }
-            get { return EmpName; }
-        }
-
-        private short DeptNo;
-
-        public short DEPTNO
-        {
-            set
-            {
-                if (value > 0)
-                    DeptNo = value;
-                else
-                    Console.WriteLine("invalid Dept No");
+                for (int j = 0; j < arr[i].Length; j++)
+                {
+                    Console.Write("enter marks for student {0}{1} : ", i, j);
+                    arr[i][j] = Convert.ToInt32(Console.ReadLine());
+                }
+                Console.WriteLine();
             }
 
-            get
+
+            Console.WriteLine();
+            Console.WriteLine();
+            for (int i = 0; i < arr.Length; i++)
             {
-                return DeptNo;
+                for (int j = 0; j < arr[i].Length; j++)
+                {
+                    Console.WriteLine("Marks of batch {0}, student {1} is {2}", i, j, arr[i][j]);
+
+                }
             }
-        }
+            Console.ReadLine();
 
-
-        private decimal Basic;
-        public decimal BASIC
-        {
-            set { Basic = value; }
-            get { return Basic; }
-        }
-
-        private static int eid = 0;
-        public Employee(string EmpName = "noname", short DeptNo =0,decimal Basic=0)
-        {
-            eid++;
-            EmpNo = eid;
-            this.EmpName = EmpName;
-            this.DeptNo = DeptNo;
-            this.Basic = Basic;
-
-        }
-
-       public void show()
-        {
-            Console.WriteLine(EMPNO);
-            Console.WriteLine(EMPNAME);
-            Console.WriteLine(DEPTNO);
-            Console.WriteLine(BASIC);
         }
     }
 }
