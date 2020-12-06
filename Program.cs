@@ -4,47 +4,71 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment_Q2
+namespace Assignment5_Q2
 {
     class Program
     {
         static void Main(string[] args)
         {
-
-            Console.Write("Enter the no of batches");
-            int a = Convert.ToInt32(Console.ReadLine());
-            int[][] arr = new int[a][];
-
+            Employee[] arr = new Employee[3];
             for(int i=0;i<arr.Length;i++)
             {
-                Console.Write("Enter the no of student");
-                int b = Convert.ToInt32(Console.ReadLine());
-                arr[i] = new int[b];
+                int EmpNo = Convert.ToInt32(Console.ReadLine());
+                string EmpName =Console.ReadLine();
+                decimal Basic = Convert.ToInt64(Console.ReadLine());
+                short DeptNo = Convert.ToInt16(Console.ReadLine());
+                arr[i] = new Employee(EmpNo,EmpName,Basic,DeptNo);
             }
 
-            for (int i = 0; i < arr.Length; i++)
+            Console.WriteLine("Array of Employee");
+            foreach(Employee e in arr)
             {
-                for (int j = 0; j < arr[i].Length; j++)
-                {
-                    Console.Write("enter marks for student {0}{1} : ", i, j);
-                    arr[i][j] = Convert.ToInt32(Console.ReadLine());
-                }
-                Console.WriteLine();
+                e.show();
             }
 
-
-            Console.WriteLine();
-            Console.WriteLine();
-            for (int i = 0; i < arr.Length; i++)
+            List<Employee> emplist = new List<Employee>();
+            for(int i=0; i<arr.Length; i++)
             {
-                for (int j = 0; j < arr[i].Length; j++)
-                {
-                    Console.WriteLine("Marks of batch {0}, student {1} is {2}", i, j, arr[i][j]);
-
-                }
+                emplist.Add(arr[i]);
             }
-            Console.ReadLine();
 
+
+
+            Console.WriteLine("List of Employee");
+            foreach( Employee emp in emplist)
+            {
+
+                emp.show();
+            }
         }
     }
+
+
+    public class Employee
+    {
+        public int EmpNo { get; set; }
+        public string EmpName { get; set; }
+
+        public decimal Basic { get; set; }
+
+        public short DeptNo { get; set; }
+
+        public Employee(int EmpNo=1, string EmpName="noname", decimal Basic=10000,short DeptNo=1)
+        {
+            this.EmpNo = EmpNo;
+            this.EmpName = EmpName;
+            this.Basic = Basic;
+            this.DeptNo = DeptNo;
+        }
+
+        public void show()
+        {
+            Console.WriteLine(EmpNo);
+            Console.WriteLine(EmpName);
+            Console.WriteLine(Basic);
+            Console.WriteLine(DeptNo);
+        }
+    }
+
+    
 }
