@@ -4,45 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment5_Q2
+namespace Assignment5_Q3
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Employee[] arr = new Employee[3];
-            for(int i=0;i<arr.Length;i++)
+            List<Employee> emplist = new List<Employee>();
+
+            emplist.Add(new Employee { EmpNo = 1, EmpName = "Vikas", Basic = 12000, DeptNo = 10 });
+            emplist.Add(new Employee { EmpNo = 2, EmpName = "Shree", Basic = 12380, DeptNo = 30 });
+            emplist.Add(new Employee { EmpNo = 3, EmpName = "Harsh", Basic = 13000, DeptNo = 20 });
+
+            Console.WriteLine("List of Employee");
+            foreach (Employee obj in emplist)
             {
-                int EmpNo = Convert.ToInt32(Console.ReadLine());
-                string EmpName =Console.ReadLine();
-                decimal Basic = Convert.ToInt64(Console.ReadLine());
-                short DeptNo = Convert.ToInt16(Console.ReadLine());
-                arr[i] = new Employee(EmpNo,EmpName,Basic,DeptNo);
+                obj.show();
             }
 
-            Console.WriteLine("Array of Employee");
+            Employee[] arr = new Employee[3];
+
+            emplist.CopyTo(arr);
+            Console.WriteLine("arr of Employee");
+
             foreach(Employee e in arr)
             {
                 e.show();
             }
-
-            List<Employee> emplist = new List<Employee>();
-            for(int i=0; i<arr.Length; i++)
-            {
-                emplist.Add(arr[i]);
-            }
-
-
-
-            Console.WriteLine("List of Employee");
-            foreach( Employee emp in emplist)
-            {
-
-                emp.show();
-            }
         }
     }
-
 
     public class Employee
     {
@@ -53,7 +43,7 @@ namespace Assignment5_Q2
 
         public short DeptNo { get; set; }
 
-        public Employee(int EmpNo=1, string EmpName="noname", decimal Basic=10000,short DeptNo=1)
+        public Employee(int EmpNo = 1, string EmpName = "noname", decimal Basic = 10000, short DeptNo = 1)
         {
             this.EmpNo = EmpNo;
             this.EmpName = EmpName;
@@ -70,5 +60,4 @@ namespace Assignment5_Q2
         }
     }
 
-    
 }
