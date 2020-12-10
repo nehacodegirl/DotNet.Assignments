@@ -4,60 +4,65 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment5_Q3
+namespace LamdaFunctions
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
-            List<Employee> emplist = new List<Employee>();
 
-            emplist.Add(new Employee { EmpNo = 1, EmpName = "Vikas", Basic = 12000, DeptNo = 10 });
-            emplist.Add(new Employee { EmpNo = 2, EmpName = "Shree", Basic = 12380, DeptNo = 30 });
-            emplist.Add(new Employee { EmpNo = 3, EmpName = "Harsh", Basic = 13000, DeptNo = 20 });
+            Func<decimal, decimal, decimal, decimal> SimpleInterest = (P, N, R) =>
+               
+                   (P * N * R) / 100;
+               
 
-            Console.WriteLine("List of Employee");
-            foreach (Employee obj in emplist)
-            {
-                obj.show();
-            }
+            Console.WriteLine(SimpleInterest(1000, 1, 10));
 
-            Employee[] arr = new Employee[3];
 
-            emplist.CopyTo(arr);
-            Console.WriteLine("arr of Employee");
 
-            foreach(Employee e in arr)
-            {
-                e.show();
-            }
+
+
+            Func<int, int, bool> IsGreater = (a, b) => a > b;
+              
+
+            Console.WriteLine(IsGreater(10, 5));
+
+
+
+
+            Employee e = new Employee(20000);
+
+            Func<Employee, decimal> GetBasic = emp => emp.Basic;
+
+
+
+            Predicate<int> IsEven = a => a % 2 == 0;
+            
+            Console.WriteLine(IsEven(78));
+
+            Predicate<Employee> Isgreaterthan10000 = emp => emp.Basic > 10000;
+
         }
     }
 
+    
     public class Employee
     {
-        public int EmpNo { get; set; }
-        public string EmpName { get; set; }
-
-        public decimal Basic { get; set; }
-
-        public short DeptNo { get; set; }
-
-        public Employee(int EmpNo = 1, string EmpName = "noname", decimal Basic = 10000, short DeptNo = 1)
+        
+        public decimal Basic
         {
-            this.EmpNo = EmpNo;
-            this.EmpName = EmpName;
-            this.Basic = Basic;
-            this.DeptNo = DeptNo;
+            get;
+            set;
         }
 
-        public void show()
+        public Employee(decimal Basic)
         {
-            Console.WriteLine(EmpNo);
-            Console.WriteLine(EmpName);
-            Console.WriteLine(Basic);
-            Console.WriteLine(DeptNo);
+            this.Basic=Basic;
         }
+
+        public Employee()
+        { }
+
+        
     }
-
 }
